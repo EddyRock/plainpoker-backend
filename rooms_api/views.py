@@ -1,11 +1,12 @@
-from rest_framework import generics, permissions
+from rest_framework import generics
 from .models import Room
+from rest_framework.permissions import IsAuthenticated
 from .serializers import RoomSerializer
 
 class RoomListCreateView(generics.ListCreateAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         room = serializer.save()
@@ -14,7 +15,7 @@ class RoomListCreateView(generics.ListCreateAPIView):
 class RoomDetailUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
         serializer.save()
